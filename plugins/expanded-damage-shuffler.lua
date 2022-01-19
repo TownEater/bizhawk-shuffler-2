@@ -612,6 +612,11 @@ local gamedata = {
 		end,
 		maxhp=function() return (bit.rshift(bit.band(mainmemory.read_u8(0x066F), 0xF0), 4) * 2) + 2 end,
 	},
+    ['zelda-ii'] = { -- Zelda II: Adventure Of Link - NES
+	    gethp=function() return mainmemory.read_u8(0x0565) end,
+		getlc=function() return mainmemory.read_u8(0x0700) end,
+		maxhp=function() return 1024 end,
+    },
 	['zelda-lttp'] = { -- The Legend of Zelda: A Link to the Past - SNES
 		gethp=function() return mainmemory.read_u8(0x00F36D) end,
 		getlc=function()
@@ -700,8 +705,15 @@ local gamedata = {
 		maxhp=function() return 1024 end,
 	},
 	['gremlins-2'] = {-- Gremlins 2 - NES
-        gethp=function() return mainmemory.read_u8() end,
-	}
+        gethp=function() return mainmemory.read_u8(0x00AD) end,
+	    getlc=function() return mainmemory.read_u8(0x057C) end,
+	    maxhp=function() return 1024 end,
+	},
+	['solstice'] = {-- Solstice - NES
+        gethp=function() return mainmemory.read_u8(0x0789) end,
+	    getlc=function() return mainmemory.read_u8(0x0789) end,
+	    maxhp=function() return 1024 end,
+	},
 }
 
 local backupchecks = {
