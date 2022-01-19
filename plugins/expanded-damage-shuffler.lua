@@ -665,6 +665,28 @@ local gamedata = {
 			end
 		end
 	},
+	['double-dragon'] = {-- Double Dragon - NES
+        gethp=function() return mainmemory.read_u8(0x03B4) end,
+	    getlc=function() return mainmemory.read_u8(0x0043) end,
+	    maxhp=function() return 1024 end,
+	},
+	['double-dragon-ii'] = {-- Double Dragon II - NES
+        gethp=function() return mainmemory.read_u8(0x041E) end,
+	    getlc=function() return mainmemory.read_u8(0x041E) end,
+	    maxhp=function() return 1024 end,
+    },
+	['double-dragon-iii'] = {-- Double Dragon III - NES
+	    gethp=function() return mainmemory.read_u8(0x045D) end,
+		getlc=function() return mainmemory.read_u8(0x045D) end,
+	    maxhp=function() return 1024 end,
+	},
+	['gradius'] = {-- Gradius - NES
+        gethp=function() return mainmemory.read_u8(0x0020) end,
+	    getlc=function() return mainmemory.read_u8(0x0020) end,
+		maxhp=function() return 1024 end,
+	},
+	['gremlins-2'] = {-- Gremlins 2 - NES
+        gethp=function() return mainmemory.read_u8()}
 }
 
 local backupchecks = {
