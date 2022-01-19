@@ -6,6 +6,8 @@ plugin.settings =
 {
 	-- enable this feature to have health and lives synchronized across games
 	--{ name='healthsync', type='boolean', label='Synchronize Health/Lives' },
+
+	{ name='grace', type='number', label='Grace Period (Frames)', default=10 },
 }
 
 plugin.description =
@@ -709,7 +711,7 @@ function plugin.on_frame(data, settings)
 
 	local schedule_swap, delay = shouldSwap(prevdata)
 
-	if schedule_swap and frames_since_restart > 10 then
+	if schedule_swap and frames_since_restart > settings.grace then
 		swap_game_delay(delay or 3)
 		swap_scheduled = true
 	end
