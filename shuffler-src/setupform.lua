@@ -243,6 +243,18 @@ function module.initial_setup(callback)
 		end
 	end
 
+	for _,foldername in ipairs(get_dir_folders(PLUGINS_FOLDER)) do
+		for _,filename in ipairs(get_dir_contents(PLUGINS_FOLDER .. "/" .. foldername)) do
+			if foldername .. '.lua' == filename then
+				local pname = filename:sub(1, #filename-4)
+				local pmodule = require(PLUGINS_FOLDER .. '/' .. foldername .. '.' .. pname)
+				pmodule._enabled = false
+				pmodule._module = foldername .. "/" .. pname
+				table.insert(plugins, pmodule)
+			end
+		end
+	end
+
 	local SWAP_MODES_DEFAULT = 'Random Order (Default)'
 	local SWAP_MODES = {[SWAP_MODES_DEFAULT] = -1, ['Fixed Order'] = 0}
 

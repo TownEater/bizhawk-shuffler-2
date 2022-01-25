@@ -132,6 +132,26 @@ function get_dir_contents(dir, tmp, force)
 	return file_list
 end
 
+-- Returns a table containing all the folders within a given directory
+function get_dir_folders(dir, tmp, force)
+	local TEMP_FILE = tmp or DEFAULT_CMD_OUTPUT
+	if force ~= false or not path_exists(TEMP_FILE) then
+		local cmd = string.format('ls "%s/*/" -type f > %s', dir, TEMP_FILE) -- Untested
+		if PLATFORM == 'WIN' then
+			cmd = string.format('dir "%s" /B /AD > %s', dir, TEMP_FILE)
+		end
+		os.execute(cmd)
+	end
+
+	local folder_list = {}
+	local fp = io.open(TEMP_FILE, 'r')
+	for x in fp:lines() do
+		table.insert(folder_list, x)
+	end
+	fp:close()
+	return folder_list
+end
+
 -- types of files to ignore in the games directory
 local IGNORED_FILE_EXTS = { '.msu', '.pcm' }
 
@@ -432,6 +452,7 @@ function complete_setup()
 
 	if config.plugins ~= nil then
 		for pmodpath,pdata in pairs(config.plugins) do
+			log_message('pmodpath: ' .. pmodpath)
 			local pmodule = require(PLUGINS_FOLDER .. '.' .. pmodpath)
 			if checkversion(pmodule.minversion) then
 				log_message('Plugin loaded: ' .. pmodule.name)
