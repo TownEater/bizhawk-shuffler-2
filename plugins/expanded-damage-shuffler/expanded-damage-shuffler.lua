@@ -80,7 +80,7 @@ local function generic_swap(gamemeta)
 		local currlc = gamemeta.getlc()
 
 		local maxhp = gamemeta.maxhp()
-		local minhp = gamemeta.minhp or 0
+		local minhp = gamemeta.minhp or -1
 
 		local maxlc = gamemeta.maxlc or 1000
 
